@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SOS - Rocket League OBS Browser Source Overlay</title>
+    <style>
+        ${require('../out/css/main.min.css')}
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="dot dotThreeL hide"></div>
+        <div class="dot dotTwoL hide"></div>
+        <div class="dot dotOneL hide"></div>
+        <div class="dot dotThreeR hide"></div>
+        <div class="dot dotTwoR hide"></div>
+        <div class="dot dotOneR hide"></div>
+        <div class="waiting-for-websocket hide">
+            <div class="technical-difficulties hidden"></div>
+            <div class="text">
+                Waiting for Websocket Server to connect...
+            </div>
+        </div>
+        <div class='ticker-back left hide'>
+
+        </div>
+        <div class='scoreboard-image hide'>
+            <img src="../team_logos/scoreboard.png"/>
+        </div>
+        <div class="scorebug  hide">
+            <div class="stat-popunder" style="background: #0090d3">
+                <div class="popunder-wrapper">
+                    <div class="caret">&gt;</div>
+                    <div class="stat-text"></div>
+                </div>
+                <div class="reveal-plus"></div>
+            </div>
+            <div class="main-scorebug-wrapper">
+                
+                <div class="team left">
+                    <div class="score-outer left">
+                        <div class="score">0</div>
+                    </div>
+                    <div class="logo left">
+                        <img class='left' src='https://cdn.discordapp.com/attachments/696962499177742476/771058781915578399/Centurions_Logo.png'>
+                    </div>
+                    <div class="name-tile left">
+                        <div class="bg left"></div>
+                        <div class="t-text left">Blue</div>
+                        <div class="tickerv-wrap left">20-3</div>
+                    </div>
+                </div>
+                <div class="clock">99:99</div>
+                <div class="league">Mav</div>
+                <div class="team right">
+                    <div class="name-tile right">
+                        <div class="bg right"></div>
+                        <div class="t-text right">Orange</div>
+                        <div class="tickerv-wrap right">10-3</div>
+                    </div>
+                    <div class="logo right">
+                        <img class='right' src='https://cdn.discordapp.com/attachments/696962499177742476/771058781915578399/Centurions_Logo.png'>
+                    </div>
+                    <div class="score-outer right">
+                        <div class="bg"></div>
+                            <div class="score">0</div>
+                        </div>
+                </div>
+                <div class="game-number">G1</div>
+            </div>
+        </div>
+        <div class='playercard'>
+            <div class="main-player-wrapper">
+                <div class='playercard-image'>
+                    <img src='../team_logos/playercard.png'>
+                </div>
+                <div class="playercard-top">
+                    <span>
+                        <h2 class="player-name">Almost Magic Mike</h2>
+                    </span>
+                </div>
+                <div class="playercard-header">
+                    <div class="bottom">Score</div>
+                    <div class="bottom">Goals</div>
+                    <div class="bottom">Shots</div>
+                    <div class="bottom">Assists</div>
+                    <div class="bottom">Saves</div>
+                </div>
+                <div class="playercard-bottom">
+                    <div class="score-player bottom">500</div>
+                    <div class="goals-player bottom">3</div>
+                    <div class="shots-player bottom">2</div>
+                    <div class="assists-player bottom">1</div>
+                    <div class="saves-player bottom">0</div>
+                </div>
+            </div>
+        </div>
+        <div class='scorer hide'>
+            <div class="main-player-wrapper">
+                <div class='playercard-image'>
+                    <img src='../team_logos/playercard.png'>
+                </div>
+                <div class="scorer-top">
+                    <span>
+                        <h2 class="scorer-name">Almost Magic Mike</h2>
+                    </span>
+                </div>
+                <div class="scorer-bottom">
+                    <div class='assist-name bottom'>Almost Magic Mike</div>
+                    <div class='speed-contain bottom'>
+                        <div style='clear:both'></div>
+                        <span><h1 class='shot-speed-header'>Speed</h1></span>
+                        <span><h1 class='shot-speed'>10</h1></span>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="teammates left hide">
+
+        </div>
+        <div class="teammates right hide">
+
+        </div>
+        <div class='boost-image hide'><img src='../team_logos/boost.png'></div>
+        <div class="boost-wrapper hide">
+            <div id='boost' class="boost"></div>
+        </div>
+
+        <div class="post-game hide">
+            <div class="post left">
+                <h1 class='post-left-name'></h1>
+                <div class="post-players-left">
+                    <div class='post-names-left post-child'>1
+                    </div>
+                    <div class='post-score-left post-child'>1
+                    </div>
+                    <div class='post-goals-left post-child'>1
+                    </div>
+                    <div class='post-shots-left post-child'>1
+                    </div>
+                    <div class='post-assists-left post-child'>1
+                    </div>
+                    <div class='post-saves-left post-child'>1
+                    </div>
+                    <div class='post-cartouches-left post-child'>1
+                    </div>
+                    <div class='post-touches-left post-child'>1
+                    </div>
+                    <div class='post-usage-left post-child'>1
+                    </div>
+                    <div class='post-speed-left post-child'>1
+                    </div>
+                </div>
+            </div>
+            <div class="post titles">
+                <div class="post-players-titles">
+                    <div class='post-players-titles post-child'>
+                        <h2>Players</h2>
+                    </div>
+                    <div class='post-score-titles post-child'>
+                        <h2>Score</h2>
+                    </div>
+                    <div class='post-goals-titles post-child'>
+                        <h2>Goals</h2>
+                    </div>
+                    <div class='post-shots-titles post-child'>
+                        <h2>Shots</h2>
+                    </div>
+                    <div class='post-assists-titles post-child'>
+                        <h2>Assists</h2>
+                    </div>
+                    <div class='post-saves-titles post-child'>
+                        <h2>Saves</h2>
+                    </div>
+                    <div class='post-cartouches-titles post-child'>
+                        <h2>Bumps</h2>
+                    </div>
+                    <div class='post-touches-titles post-child'>
+                        <h2>Ball Touches</h2>
+                    </div>
+                    <div class='post-usage-titles post-child'>
+                        <h2>Boost Consumption</h2>
+                    </div>
+                    <div class='post-speed-titles post-child'>
+                        <h2>Average Speed</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="post right">
+                <h1 class='post-right-name'></h1>
+                <div class="post-players-right">
+                    <div class='post-names-right post-child'>1
+                    </div>
+                    <div class='post-score-right post-child'>1
+                    </div>
+                    <div class='post-goals-right post-child'>1
+                    </div>
+                    <div class='post-shots-right post-child'>1
+                    </div>
+                    <div class='post-assists-right post-child'>1
+                    </div>
+                    <div class='post-saves-right post-child'>1
+                    </div>
+                    <div class='post-cartouches-right post-child'>1
+                    </div>
+                    <div class='post-touches-right post-child'>1
+                    </div>
+                    <div class='post-usage-right post-child'>1
+                    </div>
+                    <div class='post-speed-right post-child'>1
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+    <script>${require('vendor/jquery-3.4.1/jquery-3.4.1.min.js')}</script>
+    <script>${require('../out/js/base.js')}</script>
+    <script>${require('../out/js/progress.js')}</script>
+    <script>
+        //!!! Register the websocket listeners before attempting to connect
+        WsSubscribers.subscribe("ws", "open", function() {
+            $(".waiting-for-websocket").addClass("hidden");
+            WsSubscribers.send("cb", "first_connect", {
+                'name': 'Scorebug',
+                'version': ${require('../version.txt')}
+            });
+            setInterval(function () {
+                WsSubscribers.send("cb", "heartbeat", "heartbeat");
+            }, 1000);
+        });
+
+        WsSubscribers.subscribe("ws", "open", function() {
+            $(".waiting-for-websocket").addClass("hidden");
+        });
+
+        WsSubscribers.subscribe("ws", "error", function() {
+            $(".waiting-for-websocket .text").text("[002] There has been an error with the Rocket League connection. Please stand by");
+            $(".waiting-for-websocket").removeClass("hidden");
+        });
+
+        WsSubscribers.subscribe("ws", "close", function() {
+            $(".waiting-for-websocket .text").text("[004] Connection to Rocket League has gone away. Please stand by");
+            $(".waiting-for-websocket, .technical-difficulties").removeClass("hidden");
+        });
+
+        WsSubscribers.init(49322, false, [
+            "game:update_state",
+            "cb:heartbeat"
+        ]);
+    </script>
+    <script>
+        function secondsToTime(seconds, showMs) {
+            return (new Date(seconds * 1000)).toISOString().substr(showMs ? 17 : 15, 4);
+        }
+    </script>
+    <script>
+        let teamMap = ${require('../team_logos/map.json')};
+        let leftSeriesScore = 0;
+        let rightSeriesScore = 0;
+        // var Boost = new ProgressBar.Circle('#boost', {
+        //     color: '#FCB03C',
+        //     strokeWidth: 8,
+        //     trailWidth: 8,
+        //     duration: 100,
+        //     text: {
+        //         autoStyleContainer: false
+        //     },
+        //     from: {color: '#eb3d34'},
+        //     to: {color: '#5ceb34'},
+        //     step: (state, bar) => {
+        //         bar.path.setAttribute('stroke', state.color);
+        //         var value = Math.round(bar.value() * 100);
+        //         bar.setText(value);
+        //         bar.text.style.color = state.color;
+        //     }
+
+        // });
+        let leftRecord = ""
+        let rightRecord = ""
+        let leftColor = ""
+        let rightColor = ""
+        var url = "https://spreadsheets.google.com/feeds/cells/1mDV2D9MRoYX-7f4eBDlllvBq-kewCFQ6kRbCf3ML6uk/od6/public/basic?alt=json";
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.response);
+                var entry = obj['feed']['entry'];
+                for (i = 0; i < entry.length; i++) {
+                    if (obj['feed']['entry'][i]['title']['$t'] == "J6") {
+                        leftRecord = obj['feed']['entry'][i]['content']['$t'];
+                        $(".tickerv-wrap.left").text(leftRecord);
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "J7") {
+                        rightRecord = obj['feed']['entry'][i]['content']['$t'];
+                        $(".tickerv-wrap.right").text(rightRecord);
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "K6") {
+                        leftColor = obj['feed']['entry'][i]['content']['$t'];
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "K7") {
+                        rightColor = obj['feed']['entry'][i]['content']['$t'];
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "G5") {
+                        $(".league").text(obj['feed']['entry'][i]['content']['$t']);
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "C29") {
+                        if (obj['feed']['entry'][i]['content']['$t'] > leftSeriesScore) {
+                            leftSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                            console.log(leftSeriesScore)
+                            if (leftSeriesScore >= 1) {
+                                $(".dotOneL").removeClass('hide');
+                                $(".dotOneL").css("background-color", leftColor);
+                            } if (leftSeriesScore >= 2) {
+                                $(".dotTwoL").removeClass('hide');
+                                $(".dotOneL").css("background-color", leftColor);
+                            } if (leftSeriesScore >= 3) {
+                                $(".dotThreeL").removeClass('hide');
+                                $(".dotOneL").css("background-color", leftColor);
+                            }
+                        }
+                    } else if (obj['feed']['entry'][i]['title']['$t'] == "C30") {
+                        if (obj['feed']['entry'][i]['content']['$t'] > rightSeriesScore) {
+                            rightSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                            if (rightSeriesScore >= 1) {
+                                $(".dotOneR").removeClass('hide');
+                                $(".dotOneR").css("background-color", rightColor);
+                            } if (rightSeriesScore >= 2) {
+                                $(".dotTwoR").removeClass('hide');
+                                $(".dotOneR").css("background-color", rightColor);
+                            } if (rightSeriesScore >= 3) {
+                                $(".dotThreeR").removeClass('hide');
+                                $(".dotOneR").css("background-color", rightColor);
+                            }
+                        }
+                    }
+                }
+                updateTeamInfo = true;
+                initialBoost = true;
+            }
+        };
+
+        xhttp.open("GET", url, true);
+        xhttp.send();
+
+        let currentColor = '#FCB03C';
+        var Boost = new ProgressBar.Line('#boost', {
+            color: '#FCB03C',
+            strokeWidth: 90,
+            trailWidth: 90,
+            duration: 100,
+            from: {color: '#eb3d34'},
+            to: {color: '#5ceb34'},
+            step: (state, bar) => {
+                bar.path.setAttribute('stroke', currentColor);
+                var value = Math.round(bar.value() * 100);
+                bar.setText(value);
+                bar.text.style.color = 'black';
+            }
+        });
+
+        let initialBoost = true;
+
+        Boost.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+        Boost.text.style.fontSize = '4rem';
+
+        var team1 = {};
+        var team0 = {};
+        var team1Updated = {};
+        var team0Updated = {};
+        var team1Last = {};
+        var team0Last = {};
+        function clearScore() {
+            $(".dotOneL").addClass('hide');
+            $(".dotTwoL").addClass('hide');
+            $(".dotThreeL").addClass('hide');
+            $(".dotOneR").addClass('hide');
+            $(".dotTwoR").addClass('hide');
+            $(".dotThreeR").addClass('hide');
+            leftSeriesScore = 0;
+            rightSeriesScore = 0;
+        }
+        WsSubscribers.subscribe("sos", "scorebug_teams_update", (d) => {
+            $(".scorebug .team.left .t-text").text(d.teams.left.abbreviation);
+            
+            $(".scorebug .team.right .t-text").text(d.teams.right.abbreviation);
+
+            $(".scorebug .game-number").text("G"+d.gameNumber);
+            SOSUtils.fitText(".scorebug .team .t-text", 25);
+
+            let leftLower = d.teams.left.name.toLowerCase();
+            let rightLower = d.teams.right.name.toLowerCase();
+
+            if (teamMap.hasOwnProperty(leftLower)) {
+                let teamLeft = teamMap[leftLower];
+                $('.scorebug .team.left .logo img').attr('src', `${teamLeft.logo}`);
+            } else {
+                $('.scorebug .team.left .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+            }
+
+            if (teamMap.hasOwnProperty(rightLower)) {
+                let teamRight = teamMap[rightLower];
+                $('.scorebug .team.right .logo img').attr('src', `${teamRight.logo}`);
+            } else {
+                $('.scorebug .team.right .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+            }
+
+        });
+        WsSubscribers.subscribe("sos", "popunder_show", (d) => {
+            let $popunder = $(".scorebug .stat-popunder .stat-text");
+            $popunder.text(d.message);
+            let contentWidth = $popunder[0].scrollWidth;
+
+            let $wrapper = $('.scorebug .stat-popunder');
+
+            let teamColor = "";
+            if (d.team === "left") {
+                teamColor = "#0090d3";
+            } else if (d.team === "right") {
+                teamColor = "#f26522";
+            }
+            $wrapper.css('background', teamColor);
+
+            $wrapper.addClass("show");
+            setTimeout(function () {
+                $(".scorebug .stat-popunder").css("width", (contentWidth+53+50)+"px").css("height", "61px");
+            }, 150);
+            setTimeout(function () {
+                $(".scorebug .stat-popunder").css("width", 0).css("height", 0);
+                setTimeout(function () {
+                    $wrapper.removeClass("show");
+                }, 350);
+            }, 10000);
+        });
+        let updateTeamInfo = false;
+        let updateTeamScores = false;
+        let showNoTimeInClock = false;
+        WsSubscribers.subscribe("game", "match_created", () => {
+            showNoTimeInClock = false;
+            $(".scorebug .team .score").text("0");
+            $(".score .clock").text("5:00");
+            updateTeamInfo = true;
+            $(".page-container").removeClass("hide");
+            $(".scorebug").removeClass('hide');
+            $(".scoreboard-image").removeClass('hide');
+            $(".post-game").addClass("hide");
+            team1 = {};
+            team0 = {};
+            initialBoost = true;
+            team1Updated = {};
+            team0Updated = {};
+            team1Last = {};
+            team0Last = {};
+            var url = "https://spreadsheets.google.com/feeds/cells/1mDV2D9MRoYX-7f4eBDlllvBq-kewCFQ6kRbCf3ML6uk/od6/public/basic?alt=json";
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var obj = JSON.parse(this.response);
+                    var entry = obj['feed']['entry'];
+                    for (i = 0; i < entry.length; i++) {
+                        if (obj['feed']['entry'][i]['title']['$t'] == "J6") {
+                            leftRecord = obj['feed']['entry'][i]['content']['$t'];
+                            $(".tickerv-wrap.left").text(leftRecord);
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "J7") {
+                            rightRecord = obj['feed']['entry'][i]['content']['$t'];
+                            $(".tickerv-wrap.right").text(rightRecord);
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "K6") {
+                            leftColor = obj['feed']['entry'][i]['content']['$t'];
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "K7") {
+                            rightColor = obj['feed']['entry'][i]['content']['$t'];
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "G5") {
+                            $(".league").text(obj['feed']['entry'][i]['content']['$t']);
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "C29") {
+                            if (obj['feed']['entry'][i]['content']['$t'] > leftSeriesScore) {
+                                leftSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                                console.log(leftSeriesScore)
+                                if (leftSeriesScore >= 1) {
+                                    $(".dotOneL").removeClass('hide');
+                                    $(".dotOneL").css("background-color", leftColor);
+                                } if (leftSeriesScore >= 2) {
+                                    $(".dotTwoL").removeClass('hide');
+                                    $(".dotOneL").css("background-color", leftColor);
+                                } if (leftSeriesScore >= 3) {
+                                    $(".dotThreeL").removeClass('hide');
+                                    $(".dotOneL").css("background-color", leftColor);
+                                }
+                            }
+                        } else if (obj['feed']['entry'][i]['title']['$t'] == "C30") {
+                            if (obj['feed']['entry'][i]['content']['$t'] > rightSeriesScore) {
+                                rightSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                                if (rightSeriesScore >= 1) {
+                                    $(".dotOneR").removeClass('hide');
+                                    $(".dotOneR").css("background-color", rightColor);
+                                } if (rightSeriesScore >= 2) {
+                                    $(".dotTwoR").removeClass('hide');
+                                    $(".dotOneR").css("background-color", rightColor);
+                                } if (rightSeriesScore >= 3) {
+                                    $(".dotThreeR").removeClass('hide');
+                                    $(".dotOneR").css("background-color", rightColor);
+                                }
+                            }
+                        }
+                    }
+                    updateTeamInfo = true;
+                    initialBoost = true;
+                }
+            };
+
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        });
+        WsSubscribers.subscribe("game", "match_ended", (d) => {
+            showNoTimeInClock = true;
+            //$(".post-game").removeClass("hide");
+            $(".boost-wrapper").addClass('hide');
+            $(".playercard").addClass('hide');
+
+            if (d.winner_team_num == 0) {
+                leftSeriesScore = leftSeriesScore + 1;
+                if (leftSeriesScore == 1) {
+                    $(".dotOneL").removeClass('hide');
+                    $(".dotOneL").css("background-color", leftColor);
+                } else if (leftSeriesScore == 2) {
+                    $(".dotTwoL").removeClass('hide');
+                    $(".dotOneL").css("background-color", leftColor);
+                } else if (leftSeriesScore == 3) {
+                    $(".dotThreeL").removeClass('hide');
+                    $(".dotOneL").css("background-color", leftColor);
+                    setTimeout(clearScore, 180000);
+                }
+            } else {
+                rightSeriesScore = rightSeriesScore + 1;
+                if (rightSeriesScore == 1) {
+                    $(".dotOneR").removeClass('hide');
+                    $(".dotOneL").css("background-color", rightColor);
+                } else if (rightSeriesScore == 2) {
+                    $(".dotTwoR").removeClass('hide');
+                    $(".dotOneL").css("background-color", rightColor);
+                } else if (rightSeriesScore == 3) {
+                    $(".dotThreeR").removeClass('hide');
+                    $(".dotOneL").css("background-color", rightColor);
+                    setTimeout(clearScore, 180000);
+                }
+            }
+            $(".teammates.left").addClass('hide');
+            $(".teammates.right").addClass('hide');
+            //$(".scorebug").addClass('hide');
+            //$(".scoreboard-image").addClass('hide');
+            $.each( team0, function( key, player ) {
+                $(".post-name-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name line'>" + team0Updated[key]['name'] + "</div>");
+                $(".post-score-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-score line'>" + team0Updated[key]['score'] + "</div>");
+                $(".post-goals-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-goals line'>" + team0Updated[key]['goals'] + "</div>");
+                $(".post-shots-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-shots line'>" + team0Updated[key]['shots'] + "</div>");
+                $(".post-assists-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-assists line'>" + team0Updated[key]['assists'] + "</div>");
+                $(".post-saves-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-saves line'>" + team0Updated[key]['saves'] + "</div>");
+                $(".post-cartouches-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-cartouches line'>" + team0Updated[key]['cartouches'] + "</div>");
+                $(".post-touches-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-touches line'>" + team0Updated[key]['touches'] + "</div>");
+                $(".post-usage-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-usage line'>" + player['usage'] + "</div>");
+                var totalSpeed = 0;
+                for(var i = 0; i < player['avgspeed'].length; i++) {
+                    totalSpeed += player['avgspeed'][i];
+                }
+                var avg = totalSpeed / player['avgspeed'].length;
+                $(".post-speed-left").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-speed'>" + Math.round(avg) + "</div>");
+            });
+            $.each( team1, function( key, player ) {
+                $(".post-name-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name line'>" + team1Updated[key]['name'] + "</div>");
+                $(".post-score-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-score line'>" + team1Updated[key]['score'] + "</div>");
+                $(".post-goals-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-goals line'>" + team1Updated[key]['goals'] + "</div>");
+                $(".post-shots-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-shots line'>" + team1Updated[key]['shots'] + "</div>");
+                $(".post-assists-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-assists line'>" + team1Updated[key]['assists'] + "</div>");
+                $(".post-saves-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-saves line'>" + team1Updated[key]['saves'] + "</div>");
+                $(".post-cartouches-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-cartouches line'>" + team1Updated[key]['cartouches'] + "</div>");
+                $(".post-touches-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-touches line'>" + team1Updated[key]['touches'] + "</div>");
+                $(".post-usage-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-usage line'>" + player['usage'] + "</div>");
+                var totalSpeed = 0;
+                for(var i = 0; i < player['avgspeed'].length; i++) {
+                    totalSpeed += player['avgspeed'][i];
+                }
+                var avg = totalSpeed / player['avgspeed'].length;
+                $(".post-speed-right").append("<div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-speed'>" + Math.round(avg) + "</div>");
+            });
+        });
+        WsSubscribers.subscribe("game", "goal_scored", () => {
+            updateTeamScores = true;
+
+        });
+        WsSubscribers.subscribe("game", "replay_start", (d) => {
+            $(".scorer-name").text("" + goalScorer);
+            $(".assist-name").text("Assist: " + goalAssister);
+            $(".shot-speed").text(goalSpeed);
+            $(".scorer").removeClass('hide');
+
+        });
+        WsSubscribers.subscribe("game", "replay_end", (d) => {
+            $(".scorer").addClass('hide');
+            getSpeed = true;
+        });
+        let goalScorer = '';
+        let goalAssister = '';
+        let goalSpeed = '';
+        let getSpeed = true;
+        WsSubscribers.subscribe("game", "statfeed_event", (d) => {
+            console.log(d);
+            goalScorer = '';
+            goalAssister = 'Unassisted';
+            if (d['type'] == 'Goal') {
+                goalScorer = d['main_target']['name'];
+                getSpeed = false;
+            }
+            if (d['type'] == 'Assist') {
+                goalAssister = d['main_target']['name'];
+            }
+        });
+        WsSubscribers.subscribe("game", "update_state", (d) => {
+            if (rightColor == ""){
+                var url = "https://spreadsheets.google.com/feeds/cells/1mDV2D9MRoYX-7f4eBDlllvBq-kewCFQ6kRbCf3ML6uk/od6/public/basic?alt=json";
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var obj = JSON.parse(this.response);
+                        var entry = obj['feed']['entry'];
+                        console.log(entry);
+                        for (i = 0; i < entry.length; i++) {
+                            if (obj['feed']['entry'][i]['title']['$t'] == "J6") {
+                                leftRecord = obj['feed']['entry'][i]['content']['$t'];
+                                $(".tickerv-wrap.left").text(leftRecord);
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "J7") {
+                                rightRecord = obj['feed']['entry'][i]['content']['$t'];
+                                $(".tickerv-wrap.right").text(rightRecord);
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "K6") {
+                                leftColor = obj['feed']['entry'][i]['content']['$t'];
+                                console.log("Update: " + leftColor);
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "K7") {
+                                rightColor = obj['feed']['entry'][i]['content']['$t'];
+                                console.log("Update: " + rightColor);
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "G5") {
+                                $(".league").text(obj['feed']['entry'][i]['content']['$t']);
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "C29") {
+                                if (obj['feed']['entry'][i]['content']['$t'] > leftSeriesScore) {
+                                    leftSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                                    console.log(leftSeriesScore)
+                                    if (leftSeriesScore >= 1) {
+                                        $(".dotOneL").removeClass('hide');
+                                        $(".dotOneL").css("background-color", leftColor);
+                                    } if (leftSeriesScore >= 2) {
+                                        $(".dotTwoL").removeClass('hide');
+                                        $(".dotOneL").css("background-color", leftColor);
+                                    } if (leftSeriesScore >= 3) {
+                                        $(".dotThreeL").removeClass('hide');
+                                        $(".dotOneL").css("background-color", leftColor);
+                                        setTimeout(clearScore, 180000);
+                                    }
+                                }
+                            } else if (obj['feed']['entry'][i]['title']['$t'] == "C30") {
+                                if (obj['feed']['entry'][i]['content']['$t'] > rightSeriesScore) {
+                                    rightSeriesScore = parseInt(obj['feed']['entry'][i]['content']['$t']);
+                                    if (rightSeriesScore >= 1) {
+                                        $(".dotOneR").removeClass('hide');
+                                        $(".dotOneR").css("background-color", rightColor);
+                                    } if (rightSeriesScore >= 2) {
+                                        $(".dotTwoR").removeClass('hide');
+                                        $(".dotOneR").css("background-color", rightColor);
+                                    } if (rightSeriesScore >= 3) {
+                                        $(".dotThreeR").removeClass('hide');
+                                        $(".dotOneR").css("background-color", rightColor);
+                                        setTimeout(clearScore, 180000);
+                                    }
+                                }
+                            }
+                        }
+                        updateTeamInfo = true;
+                        initialBoost = true;
+                    }
+                };
+
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+            
+
+            if (showNoTimeInClock) {
+                $('.scorebug .clock').text('00.0');
+            } else {
+                $('.scorebug .clock').text(
+                    (d['game']['isOT'] ? '+' : '') + secondsToTime(d['game']['time'],
+                    d['game']['time'] < 60 && !d['game']['isOT'])
+                );
+            }
+            if (getSpeed) {
+                goalSpeed = d['game']['ballSpeed'];
+            }
+            
+            if (updateTeamScores) {
+                updateTeamScores = false;
+                $(".scorebug .team.left .score").text(d['game']['teams'][0]['score']);
+                $(".scorebug .team.right .score").text(d['game']['teams'][1]['score']);
+            }
+
+            if (updateTeamInfo) {
+                $(".scorebug .team.left .t-text").text(d['game']['teams'][0]['name']);
+            
+                $(".scorebug .team.right .t-text").text(d['game']['teams'][1]['name']);
+
+                SOSUtils.fitText(".scorebug .team .t-text", 25);
+
+                let leftLower = d['game']['teams'][0]['name'].toLowerCase();
+                let rightLower = d['game']['teams'][1]['name'].toLowerCase();
+
+                if (teamMap.hasOwnProperty(leftLower)) {
+                    let teamLeft = teamMap[leftLower];
+                    if (leftColor == '1' || leftColor == '2'){
+                        leftColor = teamLeft[leftColor];
+                    }
+                    $(".dotOneL").css("background-color", leftColor);
+                    $(".dotTwoL").css("background-color", leftColor);
+                    $(".dotThreeL").css("background-color", leftColor);
+                    $('.scorebug .team.left .logo img').attr('src', `${teamLeft.logo}`);
+                } else {
+                    $('.scorebug .team.left .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+                }
+
+                if (teamMap.hasOwnProperty(rightLower)) {
+                    let teamRight = teamMap[rightLower];
+                    if (rightColor == '1' || rightColor == '2'){
+                        rightColor = teamRight[rightColor];
+                    }
+                    $(".dotOneR").css("background-color", rightColor);
+                    $(".dotTwoR").css("background-color", rightColor);
+                    $(".dotThreeR").css("background-color", rightColor);
+                    $('.scorebug .team.right .logo img').attr('src', `${teamRight.logo}`);
+                } else {
+                    $('.scorebug .team.right .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+                }
+                updateTeamInfo = false;
+            }
+
+            $(".scorebug .team.left .t-text").text(d['game']['teams'][0]['name']);
+            
+            $(".scorebug .team.right .t-text").text(d['game']['teams'][1]['name']);
+
+            $(".scorebug .game-number").text("G"+d.gameNumber);
+            SOSUtils.fitText(".scorebug .team .t-text", 25);
+
+            let leftLower = d['game']['teams'][0]['name'].toLowerCase();
+            let rightLower = d['game']['teams'][1]['name'].toLowerCase();
+
+            if (teamMap.hasOwnProperty(leftLower)) {
+                let teamLeft = teamMap[leftLower];
+                $('.scorebug .team.left .logo img').attr('src', `${teamLeft.logo}`);
+            } else {
+                $('.scorebug .team.left .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+            }
+
+            if (teamMap.hasOwnProperty(rightLower)) {
+                let teamRight = teamMap[rightLower];
+                $('.scorebug .team.right .logo img').attr('src', `${teamRight.logo}`);
+            } else {
+                $('.scorebug .team.right .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
+            }
+            
+            
+            let playertarget = d['game']['target'];
+            if (playertarget === '') {
+                $(".boost-wrapper").addClass('hide');
+                $(".teammates.left").addClass('hide');
+                $(".teammates.right").addClass('hide');
+                $(".playercard").addClass('hide');
+                $(".boost-image").addClass('hide');
+            }else{
+                $(".playercard").removeClass('hide');
+                $(".boost-wrapper").removeClass('hide');
+                $(".teammates.left").removeClass('hide');
+                $(".teammates.right").removeClass('hide');
+                $(".boost-image").removeClass('hide');
+                $(".scorebug").removeClass('hide');
+                $(".scoreboard-image").removeClass('hide');
+                $(".player-name").text(d['players'][playertarget]['name']);
+                $(".goals-player").text(d['players'][playertarget]['goals']);
+                $(".saves-player").text(d['players'][playertarget]['saves']);
+                $(".assists-player").text(d['players'][playertarget]['assists']);
+                $(".shots-player").text(d['players'][playertarget]['shots']);
+                $(".score-player").text(d['players'][playertarget]['score']);
+                Boost.animate(d['players'][playertarget]['boost']/100)
+                if (d['players'][playertarget]['team'] == 0) {
+                    currentColor = leftColor;
+                }else {
+                    currentColor = rightColor;
+                }
+            }
+
+            let players = d['players'];
+
+            if (initialBoost) {
+                $(".teammates.left").empty();
+                $(".teammates.right").empty();
+                $.each( players, function( key, player ) {
+                    if (player['team'] === 0) {
+                        team0[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = 0;
+                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'] = [];
+                        $(".teammates.left").append("<div class='player-boost' style='color: white; font-size: 20px; background-color: " + leftColor + ";margin-top: 10px; align-items: center; padding-top: 10px; padding-bottom: 20px; border-style: solid; border-color: black; border-width: 2px;'><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name pName'></div><div class='pBoost " + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "'></div></div>");
+                        $("." + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name").text(player['name']);
+                        team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = 33;
+                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'] = new ProgressBar.Line('.' + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""), {
+                            color: leftColor,
+                            trailColor: '#8c8c8c',
+                            strokeWidth: 7,
+                            trailWidth: 7,
+                            duration: 100,
+                            from: {color: '#eb3d34'},
+                            to: {color: '#5ceb34'},
+                            text: {
+                                value: '0',
+                                className: 'hide'
+                            },
+                            svgStyle: {
+                                border: "1px solid black"
+                            },
+                            step: (state, bar) => {
+                                var value = Math.round(bar.value() * 100);
+                                var lastValue = team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")];
+                                if (value < lastValue) {
+                                    team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] + lastValue - value;
+                                    team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                } else {
+                                    team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                }
+                                bar.setText(value);
+                            }
+                        });
+                        console.log("Added team0 player - " + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""));
+                        
+                    } else {
+                        team1[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = 0;
+                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'] = [];
+                        $(".teammates.right").append("<div class='player-boost' style='color: white; font-size: 20px; background-color: " + rightColor + ";margin-top: 10px; align-items: center; padding-top: 10px; padding-bottom: 20px; border-style: solid; border-color: black; border-width: 2px;'><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name'></div><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + " flip'></div></div>");
+                        $("." + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name").text(player['name']);
+                        team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = 33;
+                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'] = new ProgressBar.Line('.' + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""), {
+                            color: rightColor,
+                            trailColor: '#8c8c8c',
+                            strokeWidth: 7,
+                            trailWidth: 7,
+                            duration: 100,
+                            from: {color: '#eb3d34'},
+                            to: {color: '#5ceb34'},
+                            text: {
+                                value: '0',
+                                className: 'hide'
+                            },
+                            svgStyle: {
+                                border: "1px solid black"
+                            },
+                            step: (state, bar) => {
+                                var value = Math.round(bar.value() * 100);
+                                var lastValue = team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")];
+                                if (value < lastValue) {
+                                    team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] + lastValue - value;
+                                    team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                } else {
+                                    team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                }
+                                bar.setText(value);
+                            }
+                        });
+                        
+                        console.log("Added team1 player - " + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""));
+                    }
+                    initialBoost = false;
+                });
+            } else {
+                $.each( players, function( key, player ) {
+                    if (team0.hasOwnProperty(player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""))) {
+                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['boost'] = player['boost'];
+                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'].animate(player['boost']/100);
+                        if (!(player['isDead']) && !(player['speed'] == 0)) {
+                            team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'].push(player['speed']);
+                        }
+                        team0Updated[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                        
+                    } else if (team1.hasOwnProperty(player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""))) {
+                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['boost'] = player['boost'];
+                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'].animate(player['boost']/100);
+                        if (!(player['isDead']) && !(player['speed'] == 0)) {
+                            team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'].push(player['speed']);
+                        }
+                        team1Updated[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                    } else {
+                        if (player['team'] === 0) {
+                            team0[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                            team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = 0;
+                            team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'] = [];
+                            team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = 33;
+                            $(".teammates.left").append("<div class='player-boost' style='color: white; font-size: 20px; background-color: " + leftColor + ";margin-top: 10px; align-items: center; padding-top: 10px; padding-bottom: 20px; border-style: solid; border-color: black; border-width: 2px;'><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name'></div><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "'></div></div>");
+                            $("." + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name").text(player['name']);
+                            team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'] = new ProgressBar.Line('.' + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""), {
+                                color: leftColor,
+                                trailColor: '#8c8c8c',
+                                strokeWidth: 7,
+                                trailWidth: 7,
+                                duration: 100,
+                                from: {color: '#eb3d34'},
+                                to: {color: '#5ceb34'},
+                                text: {
+                                    value: '0',
+                                    className: 'hide'
+                                },
+                                svgStyle: {
+                                    border: "1px solid black"
+                                },
+                                step: (state, bar) => {
+                                    var value = Math.round(bar.value() * 100);
+                                    var lastValue = team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")];
+                                    if (value < lastValue) {
+                                        team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = team0[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] + lastValue - value;
+                                        team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                    } else {
+                                        team0Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                    }
+                                    bar.setText(value);
+                                }
+                            });
+                            console.log("Added team0 player - " + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""));
+                            
+                        } else {
+                            team1[players[key]['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = players[key];
+                            team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = 0;
+                            team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['avgspeed'] = [];
+                            team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = 33;
+                            $(".teammates.right").append("<div class='player-boost' style='color: white; font-size: 20px; background-color: " + rightColor + ";margin-top: 10px; align-items: center; padding-top: 10px; padding-bottom: 20px; border-style: solid; border-color: black; border-width: 2px;'><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name'></div><div class='" + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + " flip'></div></div>");
+                            $("." + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "") + "-name").text(player['name']);
+                            team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['animateBoost'] = new ProgressBar.Line('.' + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""), {
+                                color: rightColor,
+                                trailColor: '#8c8c8c',
+                                strokeWidth: 7,
+                                trailWidth: 7,
+                                duration: 100,
+                                from: {color: '#eb3d34'},
+                                to: {color: '#5ceb34'},
+                                text: {
+                                    value: '0',
+                                    className: 'hide'
+                                },
+                                svgStyle: {
+                                    border: "1px solid black"
+                                },
+                                step: (state, bar) => {
+                                    var value = Math.round(bar.value() * 100);
+                                    var lastValue = team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")];
+                                    if (value < lastValue) {
+                                        team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] = team1[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")]['usage'] + lastValue - value;
+                                        team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                    } else {
+                                        team1Last[player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, "")] = value;
+                                    }
+                                    bar.setText(value);
+                                }
+                            });
+                            console.log("Added team1 player - " + player['id'].replace(/\s+/g, '').replace(/[^a-zA-Z ]/g, ""));
+                        }
+                    }
+                });
+                
+            }
+            
+
+            
+        });
+
+        
+        Boost.animate(1);
+        $(".progressbar-text").css("transform", "translate(-40%, -40%) rotate(90deg)");
+        $(".boost svg").css("opacity", ".7");
+    </script>
+    <script>${require('sos-plugins/stinger/js/stinger.js')}</script>
+    <script>${require('sos-plugins/testing/js/testing.js')}</script>
+</body>
+</html>
