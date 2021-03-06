@@ -1,0 +1,420 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, Verdana, sans-serif;
+}
+
+.page-container {
+  position: absolute;
+  height: 1080px;
+  width: 1920px;
+}
+
+.hidden {
+  display: none;
+}
+
+.inline-table {
+  display: inline-table;
+}
+
+@font-face {
+  font-family: "Neuzeit Gro Bol";
+  src: url("../assets/fonts/NeuzeitGro-Bol.ttf");
+}
+@font-face {
+  font-family: "Neuzeit Gro Reg";
+  src: url("../assets/fonts/NeuzeitGro-Reg.ttf");
+}
+.waiting-for-websocket {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  z-index: 9999;
+}
+.waiting-for-websocket .text {
+  margin-top: 20%;
+  font-size: xx-large;
+  width: 100%;
+  text-align: center;
+}
+.waiting-for-websocket .technical-difficulties {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+}
+
+.prod-info {
+  width: 256px;
+  position: absolute;
+  left: 832px;
+  top: 5px;
+  height: 20px;
+  background-color: black;
+  color: white;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.scoreboard-image {
+  opacity: 1;
+  height: 80%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  text-align: center;
+  margin: 0;
+  z-index: 0;
+}
+.scoreboard-image img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.ticker-back {
+  position: absolute;
+  box-sizing: content-box;
+  top: 76px;
+  height: 21px;
+  overflow: hidden;
+  width: 150px;
+  color: black;
+  background-color: #F49D37;
+}
+.ticker-back.right {
+  left: 1025px;
+  top: 94px;
+}
+.ticker-back.left {
+  left: 720px;
+}
+
+.scorebug {
+  position: absolute;
+  top: -20px;
+  left: 24px;
+  width: 100%;
+  height: 200px;
+  font-family: "Neuzeit Gro Bol";
+  color: white;
+  text-align: center;
+}
+.scorebug .main-scorebug-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0 100%);
+}
+.scorebug .team {
+  position: absolute;
+  width: 700px;
+  height: 100%;
+}
+.scorebug .team.left {
+  left: 399px;
+}
+.scorebug .team.right {
+  left: 1020px;
+}
+.scorebug .team .name-tile {
+  position: absolute;
+  height: 100%;
+  top: 5px;
+}
+.scorebug .team .name-tile .t-text {
+  position: absolute;
+  font-size: 28px;
+  left: 0;
+  height: 100px;
+  width: 408.96px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.scorebug .team .name-tile .t-text.right {
+  left: 120px;
+}
+.scorebug .team .name-tile .t-text.left {
+  left: -80px;
+}
+.scorebug .team .name-tile .tickerv-wrap {
+  position: absolute;
+  box-sizing: content-box;
+  font-size: 24px;
+  height: 30px;
+  overflow: hidden;
+  width: 150px;
+  color: white;
+  top: 103px;
+}
+.scorebug .team .name-tile .tickerv-wrap.right {
+  left: -30px;
+}
+.scorebug .team .name-tile .tickerv-wrap.left {
+  left: 330px;
+}
+.scorebug .team .logo {
+  position: absolute;
+  top: 20px;
+  width: 80px;
+  height: 74px;
+}
+.scorebug .team .logo.left {
+  left: 250px;
+}
+.scorebug .team .logo.right {
+  left: 122px;
+}
+.scorebug .team .logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.scorebug .team .score-outer {
+  position: absolute;
+  top: 10px;
+  width: 100.6px;
+  height: 100.6px;
+  /* &.left
+  * background: #0090d3 */
+  /* &.right
+  * background: #f26522 */
+}
+.scorebug .team .score-outer.left {
+  left: 340px;
+}
+.scorebug .team .score-outer.right {
+  left: 20px;
+}
+.scorebug .team .score-outer .score {
+  position: absolute;
+  font-size: 60px;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.scorebug .clock {
+  position: absolute;
+  top: 25px;
+  left: -23px;
+  font-family: Neuzeit Gro Reg;
+  font-size: 57px;
+  text-align: center;
+  height: 97.92px;
+  width: 100%;
+  /* background: grey */
+}
+.scorebug .clock {
+  color: white;
+}
+.scorebug .game-number {
+  color: white;
+  /* background-color: rgb(29, 29, 29) */
+  left: 756px;
+  width: 103px;
+  display: none;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+
+.dotThreeL {
+  top: 111px;
+  left: 870px;
+}
+
+.dotTwoL {
+  top: 127px;
+  left: 878px;
+}
+
+.dotOneL {
+  top: 141px;
+  left: 888px;
+}
+
+.dotOneR {
+  top: 141px;
+  left: 1005px;
+}
+
+.dotTwoR {
+  top: 127px;
+  left: 1016px;
+}
+
+.dotThreeR {
+  top: 111px;
+  left: 1024px;
+}
+
+.teammates {
+  top: 150px;
+  width: 150px;
+  height: 70px;
+  position: absolute;
+  color: white;
+}
+.teammates .player-boost {
+  height: 33%;
+}
+.teammates.left {
+  left: 5px;
+}
+.teammates.right {
+  right: 5px;
+  text-align: right;
+}
+
+.flip {
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+.league {
+  position: absolute;
+  color: black;
+  top: 107px;
+  left: 831px;
+  font-size: 19px;
+  width: 210px;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.boost-image {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  height: 251px;
+  width: 218px;
+}
+.boost-image img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.boost-wrapper {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  height: 251px;
+  width: 218px;
+  clip-path: polygon(58% 94%, 67% 90%, 76% 84%, 83% 78%, 89% 71%, 94% 63%, 97% 57%, 99% 47%, 99% 41%, 99% 14%, 92% 11%, 83% 8%, 72% 5%, 62% 4%, 48% 3%, 42% 3%, 34% 4%, 28% 5%, 23% 6%, 14% 9%, 7% 12%, 0 15%, 0 28%, 0 40%, 1% 50%, 4% 59%, 8% 67%, 13% 74%, 18% 79%, 23% 83%, 30% 88%, 39% 93%, 50% 97%);
+}
+.boost-wrapper .boost-image img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.boost {
+  position: absolute;
+  font-size: 100px;
+  font-family: Arial, Helvetica, sans-serif;
+  transform: rotate(270deg);
+  height: 300px;
+  width: 259px;
+  display: flex;
+  left: -25px;
+  top: -30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.progressbar-text {
+  transform: rotate(90deg);
+}
+
+.line {
+  float: left;
+}
+
+.post-game {
+  width: 100%;
+  height: 80%;
+}
+
+.post {
+  float: left;
+  width: 33%;
+  text-align: center;
+}
+
+.post-players-right {
+  clear: both;
+}
+
+.post-child {
+  clear: both;
+  height: 135px;
+}
+.post-child h2 {
+  height: 100%;
+  width: 100%;
+}
+
+.stinger-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+}
+.stinger-container .goal-stinger, .stinger-container .goal-stinger-out {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+}
+
+.interaction-notice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1080px;
+  width: 1920px;
+  z-index: 9000;
+  background-color: mediumpurple;
+  color: wheat;
+}
+
+.replay-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1080px;
+  width: 1920px;
+  background-image: url("assets/replay.png");
+}
+
+/*# sourceMappingURL=main.css.map */
