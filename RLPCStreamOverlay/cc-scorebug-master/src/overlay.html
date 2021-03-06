@@ -25,17 +25,10 @@
         <div class='ticker-back left hide'>
 
         </div>
-        <div class='scoreboard-image hide'>
+        <div class='scoreboard-image'>
             <img src="../team_logos/scoreboard.png"/>
         </div>
-        <div class="scorebug  hide">
-            <div class="stat-popunder" style="background: #0090d3">
-                <div class="popunder-wrapper">
-                    <div class="caret">&gt;</div>
-                    <div class="stat-text"></div>
-                </div>
-                <div class="reveal-plus"></div>
-            </div>
+        <div class="scorebug">
             <div class="main-scorebug-wrapper">
                 
                 <div class="team left">
@@ -47,7 +40,7 @@
                     </div>
                     <div class="name-tile left">
                         <div class="bg left"></div>
-                        <div class="t-text left">Blue</div>
+                        <div class="t-text left">Yellow Jackets</div>
                         <div class="tickerv-wrap left">20-3</div>
                     </div>
                 </div>
@@ -56,7 +49,7 @@
                 <div class="team right">
                     <div class="name-tile right">
                         <div class="bg right"></div>
-                        <div class="t-text right">Orange</div>
+                        <div class="t-text right">Lumberjacks</div>
                         <div class="tickerv-wrap right">10-3</div>
                     </div>
                     <div class="logo right">
@@ -70,64 +63,12 @@
                 <div class="game-number">G1</div>
             </div>
         </div>
-        <div class='playercard'>
-            <div class="main-player-wrapper">
-                <div class='playercard-image'>
-                    <img src='../team_logos/playercard.png'>
-                </div>
-                <div class="playercard-top">
-                    <span>
-                        <h2 class="player-name">Almost Magic Mike</h2>
-                    </span>
-                </div>
-                <div class="playercard-header">
-                    <div class="bottom">Score</div>
-                    <div class="bottom">Goals</div>
-                    <div class="bottom">Shots</div>
-                    <div class="bottom">Assists</div>
-                    <div class="bottom">Saves</div>
-                </div>
-                <div class="playercard-bottom">
-                    <div class="score-player bottom">500</div>
-                    <div class="goals-player bottom">3</div>
-                    <div class="shots-player bottom">2</div>
-                    <div class="assists-player bottom">1</div>
-                    <div class="saves-player bottom">0</div>
-                </div>
-            </div>
-        </div>
-        <div class='scorer hide'>
-            <div class="main-player-wrapper">
-                <div class='playercard-image'>
-                    <img src='../team_logos/playercard.png'>
-                </div>
-                <div class="scorer-top">
-                    <span>
-                        <h2 class="scorer-name">Almost Magic Mike</h2>
-                    </span>
-                </div>
-                <div class="scorer-bottom">
-                    <div class='assist-name bottom'>Almost Magic Mike</div>
-                    <div class='speed-contain bottom'>
-                        <div style='clear:both'></div>
-                        <span><h1 class='shot-speed-header'>Speed</h1></span>
-                        <span><h1 class='shot-speed'>10</h1></span>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
         <div class="teammates left hide">
 
         </div>
         <div class="teammates right hide">
 
         </div>
-        <div class='boost-image hide'><img src='../team_logos/boost.png'></div>
-        <div class="boost-wrapper hide">
-            <div id='boost' class="boost"></div>
-        </div>
-
         <div class="post-game hide">
             <div class="post left">
                 <h1 class='post-left-name'></h1>
@@ -342,25 +283,8 @@
         xhttp.send();
 
         let currentColor = '#FCB03C';
-        var Boost = new ProgressBar.Line('#boost', {
-            color: '#FCB03C',
-            strokeWidth: 90,
-            trailWidth: 90,
-            duration: 100,
-            from: {color: '#eb3d34'},
-            to: {color: '#5ceb34'},
-            step: (state, bar) => {
-                bar.path.setAttribute('stroke', currentColor);
-                var value = Math.round(bar.value() * 100);
-                bar.setText(value);
-                bar.text.style.color = 'black';
-            }
-        });
 
         let initialBoost = true;
-
-        Boost.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-        Boost.text.style.fontSize = '4rem';
 
         var team1 = {};
         var team0 = {};
@@ -403,32 +327,6 @@
                 $('.scorebug .team.right .logo img').attr('src', `https://cdn.discordapp.com/attachments/402228472744902656/410550548748697610/RLPC_Logo.png`);
             }
 
-        });
-        WsSubscribers.subscribe("sos", "popunder_show", (d) => {
-            let $popunder = $(".scorebug .stat-popunder .stat-text");
-            $popunder.text(d.message);
-            let contentWidth = $popunder[0].scrollWidth;
-
-            let $wrapper = $('.scorebug .stat-popunder');
-
-            let teamColor = "";
-            if (d.team === "left") {
-                teamColor = "#0090d3";
-            } else if (d.team === "right") {
-                teamColor = "#f26522";
-            }
-            $wrapper.css('background', teamColor);
-
-            $wrapper.addClass("show");
-            setTimeout(function () {
-                $(".scorebug .stat-popunder").css("width", (contentWidth+53+50)+"px").css("height", "61px");
-            }, 150);
-            setTimeout(function () {
-                $(".scorebug .stat-popunder").css("width", 0).css("height", 0);
-                setTimeout(function () {
-                    $wrapper.removeClass("show");
-                }, 350);
-            }, 10000);
         });
         let updateTeamInfo = false;
         let updateTeamScores = false;
@@ -511,7 +409,6 @@
             showNoTimeInClock = true;
             //$(".post-game").removeClass("hide");
             $(".boost-wrapper").addClass('hide');
-            $(".playercard").addClass('hide');
 
             if (d.winner_team_num == 0) {
                 leftSeriesScore = leftSeriesScore + 1;
@@ -583,33 +480,24 @@
             updateTeamScores = true;
 
         });
-        WsSubscribers.subscribe("game", "replay_start", (d) => {
-            $(".scorer-name").text("" + goalScorer);
-            $(".assist-name").text("Assist: " + goalAssister);
-            $(".shot-speed").text(goalSpeed);
-            $(".scorer").removeClass('hide');
-
-        });
-        WsSubscribers.subscribe("game", "replay_end", (d) => {
-            $(".scorer").addClass('hide');
-            getSpeed = true;
-        });
-        let goalScorer = '';
-        let goalAssister = '';
-        let goalSpeed = '';
-        let getSpeed = true;
-        WsSubscribers.subscribe("game", "statfeed_event", (d) => {
-            console.log(d);
-            goalScorer = '';
-            goalAssister = 'Unassisted';
-            if (d['type'] == 'Goal') {
-                goalScorer = d['main_target']['name'];
-                getSpeed = false;
-            }
-            if (d['type'] == 'Assist') {
-                goalAssister = d['main_target']['name'];
-            }
-        });
+        // WsSubscribers.subscribe("game", "replay_start", (d) => {
+        //     console.log('replay_start');
+        // });
+        // WsSubscribers.subscribe("game", "replay_end", (d) => {
+        //     console.log('replay_end');
+        // });
+        // WsSubscribers.subscribe("game", "statfeed_event", (d) => {
+        //     console.log(d);
+        //     goalScorer = '';
+        //     goalAssister = 'Unassisted';
+        //     if (d['type'] == 'Goal') {
+        //         goalScorer = d['main_target']['name'];
+        //         getSpeed = false;
+        //     }
+        //     if (d['type'] == 'Assist') {
+        //         goalAssister = d['main_target']['name'];
+        //     }
+        // });
         WsSubscribers.subscribe("game", "update_state", (d) => {
             if (rightColor == ""){
                 var url = "https://spreadsheets.google.com/feeds/cells/1mDV2D9MRoYX-7f4eBDlllvBq-kewCFQ6kRbCf3ML6uk/od6/public/basic?alt=json";
@@ -760,26 +648,20 @@
             
             let playertarget = d['game']['target'];
             if (playertarget === '') {
-                $(".boost-wrapper").addClass('hide');
                 $(".teammates.left").addClass('hide');
                 $(".teammates.right").addClass('hide');
-                $(".playercard").addClass('hide');
                 $(".boost-image").addClass('hide');
             }else{
-                $(".playercard").removeClass('hide');
-                $(".boost-wrapper").removeClass('hide');
                 $(".teammates.left").removeClass('hide');
                 $(".teammates.right").removeClass('hide');
-                $(".boost-image").removeClass('hide');
                 $(".scorebug").removeClass('hide');
                 $(".scoreboard-image").removeClass('hide');
                 $(".player-name").text(d['players'][playertarget]['name']);
                 $(".goals-player").text(d['players'][playertarget]['goals']);
                 $(".saves-player").text(d['players'][playertarget]['saves']);
                 $(".assists-player").text(d['players'][playertarget]['assists']);
-                $(".shots-player").text(d['players'][playertarget]['shots']);
-                $(".score-player").text(d['players'][playertarget]['score']);
-                Boost.animate(d['players'][playertarget]['boost']/100)
+                // $(".shots-player").text(d['players'][playertarget]['shots']);
+                // $(".score-player").text(d['players'][playertarget]['score']);
                 if (d['players'][playertarget]['team'] == 0) {
                     currentColor = leftColor;
                 }else {
@@ -968,7 +850,6 @@
         });
 
         
-        Boost.animate(1);
         $(".progressbar-text").css("transform", "translate(-40%, -40%) rotate(90deg)");
         $(".boost svg").css("opacity", ".7");
     </script>
